@@ -4,6 +4,7 @@ import dotenv
 import json
 import time
 import datetime
+import logging
 
 import os
 import random
@@ -13,58 +14,76 @@ from lhrNetUtils import Config
 dotenv.load_dotenv()
 
 
-config = Config("config.json")
+def get_resp(lat,long,lat_offset,long_offset,user=None,passwd=None):
+    """
+    Make a request to the opensky api and return the result, retrys
+    every ~10 minutes until successful
 
-user = os.environ.get("OPEN_SKY_USER")
-passwd = os.environ.get("OPEN_SKY_PASS")
-
-address = "https://opensky-network.org/api/states/all?"
-
-lat = config.get_heathrow_lat()
-long = config.get_heathrow_long()
-
-Alat = config.get_lat_offset()
-Along = config.get_long_offset()
-
-print(f"{long-Along:.4f},{lat-Alat:.4f},{long+Along:.4f},{lat+Alat:.4f}")
-
-
-def get_resp():
-    print(f"Fetching at {datetime.datetime.now()}")
+    Args:
+        lat (float): The lat of the center point
+        long (float): The long of the center point
+        lat_offset (float): The distance from the center to fetch in one 
+            direction (north or south)
+        long_offset (float): The distance from the center to fetch in one 
+            direction (east or west)
+    """
+    logging.info(f"Fetching at {datetime.datetime.now()}")
     auth = None
+    address = "https://opensky-network.org/api/states/all?"
     if user and passwd:
         auth = HTTPBasicAuth(user, passwd)
 
     try:
         resp = requests.get(
             address
-            + f"lamin={lat-Alat:.4f}&lomin={long-Along:.4f}&lamax={lat+Alat:.4f}&lomax={long+Along:.4f}",
+            + f"lamin={lat-lat_offset:.4f}&lomin={long-long_offset:.4f}&lamax={lat+lat_offset:.4f}&lomax={long+long_offset:.4f}",
             auth=auth,
         )
-
         resp.raise_for_status()
 
-        print(resp.headers.get("X-Rate-Limit-Remaining"), " calls remaining")
-    except Exception:
-        print("An error occured waiting 10 mins")
+        logging.info(f"{resp.headers.get("X-Rate-Limit-Remaining")} calls remaining")
+    except requests.exceptions.RequestException:
+        logging.warning("An error occured waiting ~10 mins")
         time.sleep(600)
-        resp = get_resp()
-
+        resp = get_resp(lat,long,lat_offset,long_offset,user=user,passwd=passwd)
     return resp
 
-
-while True:
-    resp = get_resp()
+def append_to_json_arr(json_file_path: str,new_obj: dict):
+    """
+    Open a json file containg a json array append an element and write it back.
+    """
 
     existing_data = []
-    if os.path.isfile("raw_data.json"):
-        with open("raw_data.json", "r") as f:
+    if os.path.isfile(json_file_path):
+        with open(json_file_path, "r") as f:
             existing_data = json.load(f)
 
-    with open("raw_data.json", "w") as f:
-        existing_data.append(resp.json())
+    with open(json_file_path, "w") as f:
+        existing_data.append(new_obj)
         json.dump(existing_data, f)
 
-    sleep_time = random.randint(50, 500)
-    print(f"Sleeping for {sleep_time}")
-    time.sleep(sleep_time)
+
+def main():
+    config = Config("config.json")
+    
+    user = os.environ.get("OPEN_SKY_USER")
+    passwd = os.environ.get("OPEN_SKY_PASS")
+    
+    lat = config.get_heathrow_lat()
+    long = config.get_heathrow_long()
+    
+    lat_offset = config.get_lat_offset()
+    long_offset = config.get_long_offset()
+
+    while True:
+        resp = get_resp(lat,long,lat_offset,long_offset,user=user,passwd=passwd)
+
+        append_to_json_arr("raw_data.json",resp.json())  
+
+        sleep_time = random.randint(50, 500)
+        logging.info(f"Sleeping for {sleep_time}")
+        time.sleep(sleep_time)
+
+if __name__ == "__main__":
+    logging.getLogger().setLevel(logging.INFO)
+    main()
