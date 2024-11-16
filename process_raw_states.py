@@ -140,8 +140,9 @@ def save_train_and_test(test_csv_path :str,train_csv_path: str,test_proportion :
     train_rows = rows.copy()
     random.seed("lhrNet")
     test_rows = [] 
-    print(f"test will get {len(train_rows)*test_proportion} of {len(train_rows)}")
-    for _ in range(int(len(train_rows)*test_proportion)):
+    number_for_test =int(len(train_rows)*test_proportion)
+    print(f"Testing allocated {number_for_test} of {len(rows)}")
+    for _ in range(number_for_test):
         i = random.randint(0,len(train_rows))
         test_rows.append(train_rows[i])
         del train_rows[i]
