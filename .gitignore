@@ -163,3 +163,5 @@ cython_debug/
 
 *.temp
 raw_data.json
+data/
+out.png

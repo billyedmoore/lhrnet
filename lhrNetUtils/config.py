@@ -2,7 +2,14 @@ import json
 
 
 class Config:
-    required_settings = ["HeathrowLat", "HeathrowLong", "latOffset", "longOffset"]
+    required_settings = [
+        "HeathrowLat",
+        "HeathrowLong",
+        "latOffset",
+        "longOffset",
+        "xLength",
+        "yLength",
+    ]
 
     def __init__(self, config_file_path: str):
         with open(config_file_path, "r") as f:
@@ -25,3 +32,9 @@ class Config:
 
     def get_long_offset(self):
         return self._config["longOffset"]
+
+    def get_x_length(self):
+        return self._config["xLength"]
+
+    def get_y_length(self):
+        return self._config["yLength"]

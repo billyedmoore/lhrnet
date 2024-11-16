@@ -2,5 +2,7 @@
 	"HeathrowLat": 51.4775,
 	"HeathrowLong": -0.461389,
 	"latOffset": 0.32,
-	"longOffset": 1.28
+	"longOffset": 1.28,
+	"xLength": 512,
+	"yLength": 128
 }
