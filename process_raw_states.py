@@ -1,4 +1,5 @@
 from typing import List, Tuple
+import random
 import json
 
 from lhrNetUtils import Config
@@ -124,22 +125,46 @@ def get_known_state(config: Config, timestamp: int):
             return value
     return -1
 
+def save_train_and_test(test_csv_path :str,train_csv_path: str,test_proportion :float,rows :List[str]):
+    """
+    Randomly select {test_proportion}% of the rows as test. Save the rows as 
+    test_csv_path and train_csv_path respectively.
+
+    Args:
+        test_csv_path (str): The path to save the test details csv
+        train_csv_path (str): The path to save the train details csv
+        test_proportion (float): (0 >= value <= 1) The proportion of data 
+            to assign to test
+        rows (list[string]): The rows to divy up
+    """
+    train_rows = rows.copy()
+    random.seed("lhrNet")
+    test_rows = [] 
+    print(f"test will get {len(train_rows)*test_proportion} of {len(train_rows)}")
+    for _ in range(int(len(train_rows)*test_proportion)):
+        i = random.randint(0,len(train_rows))
+        test_rows.append(train_rows[i])
+        del train_rows[i]
+
+    with open(test_csv_path,"w") as f:
+        f.write("".join(test_rows)[:-1])
+
+    with open(train_csv_path,"w") as f:
+        f.write("".join(train_rows)[:-1])
 
 def main():
     config = Config("config.json")
     states = get_raw_states("raw_data.json")
-    csv_string = ""
+    rows = []
     for state in states:
         timestamp, pixels = process_state(config, state)
         print(timestamp)
         state = get_known_state(config, timestamp)
-        if any([any(row) for row in pixels]):
+        if any([any(row) for row in pixels]) and state != -1:
             save_state_as_csv(f"data/{timestamp}.csv", pixels)
-            if state != -1:
-                csv_string += f"{timestamp}.csv,{state}\n"
-    with open("data/dataset_details.csv", "w") as f:
-        f.write(csv_string[:-1])
+            rows.append(f"{timestamp}.csv,{state}\n")
 
+    save_train_and_test("data/test_details.csv","data/train_details.csv",0.3,rows)
 
 if __name__ == "__main__":
     main()
