@@ -3,8 +3,8 @@
 	"HeathrowLong": -0.461389,
 	"latOffset": 0.32,
 	"longOffset": 1.28,
-	"xLength": 512,
-	"yLength": 128,
+	"xLength": 64,
+	"yLength": 32,
 	"knownTimes": [
 		{
 			"start": "2024-11-16T07:00:00+00:00",

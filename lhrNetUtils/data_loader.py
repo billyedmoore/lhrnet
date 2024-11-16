@@ -5,6 +5,7 @@ import math
 class lhrNetDataLoader(tf.keras.utils.PyDataset):
     def __init__(self,csv_path,batch_size,**kwarg):
         super().__init__(**kwarg)
+        self.batch_size = batch_size
 
         self.x_file_arr = []
         self.y_arr = []
@@ -15,8 +16,6 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
 
                 self.x_file_arr.append(elems[0])
                 self.y_arr.append(float(elems[1]))
-
-        self.batch_size = batch_size
 
     def __len__(self):
         """
@@ -39,6 +38,8 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
         upper_bound = min(lower_bound + self.batch_size,len(self.y_arr))
         x_arr = []
         for i in range(lower_bound,upper_bound):
-            x_arr.append(np.genfromtxt(self.x_file_arr[i],delimiter=","))
-
-        return np.array(x_arr),np.array(self.y_arr[lower_bound:upper_bound])
+            x_arr.append(np.genfromtxt("data/" + self.x_file_arr[i],delimiter=","))
+        y = tf.keras.utils.to_categorical(self.y_arr[lower_bound:upper_bound],num_classes=2)
+        x = np.array(x_arr)
+        print(x.shape)
+        return x,y
