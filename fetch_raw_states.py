@@ -8,22 +8,23 @@ import datetime
 import os
 import random
 
+from lhrNetUtils import Config
+
 dotenv.load_dotenv()
+
+
+config = Config("config.json")
 
 user = os.environ.get("OPEN_SKY_USER")
 passwd = os.environ.get("OPEN_SKY_PASS")
 
 address = "https://opensky-network.org/api/states/all?"
 
-lat = 51.4775
-long = -0.461389
+lat = config.get_heathrow_lat()
+long = config.get_heathrow_long()
 
-# long +- 0.64
-# lat +- 1.28
-
-Alat = 0.32
-Along = 1.28
-
+Alat = config.get_lat_offset()
+Along = config.get_long_offset()
 
 print(f"{long-Along:.4f},{lat-Alat:.4f},{long+Along:.4f},{lat+Alat:.4f}")
 
