@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 
 class Config:
@@ -20,6 +21,22 @@ class Config:
                 raise ValueError(
                     f"Config({config_file_path}) has no value for {setting}."
                 )
+
+    def get_known_times(self):
+        """
+        Get time ranges where we know the state.
+
+        Returns:
+            list((datetime,datetime),int): A tuple (start,end) and the state (as the index of the state)
+        """
+        times = []  # (datetime,datetime),value
+        raw_times = self._config["knownTimes"]
+        for known_time in raw_times:
+            start = datetime.fromisoformat(known_time["start"])
+            end = datetime.fromisoformat(known_time["start"])
+
+            times.append(((start, end), known_time["value"]))
+        return times
 
     def get_heathrow_lat(self):
         return self._config["HeathrowLat"]
