@@ -1,5 +1,8 @@
 import json
+from typing import List, Tuple
 from datetime import datetime
+
+from functools import cache
 
 
 class Config:
@@ -22,7 +25,8 @@ class Config:
                     f"Config({config_file_path}) has no value for {setting}."
                 )
 
-    def get_known_times(self):
+    @cache
+    def get_known_times(self) -> List[Tuple[Tuple[datetime, datetime], int]]:
         """
         Get time ranges where we know the state.
 
@@ -33,7 +37,7 @@ class Config:
         raw_times = self._config["knownTimes"]
         for known_time in raw_times:
             start = datetime.fromisoformat(known_time["start"])
-            end = datetime.fromisoformat(known_time["start"])
+            end = datetime.fromisoformat(known_time["end"])
 
             times.append(((start, end), known_time["value"]))
         return times

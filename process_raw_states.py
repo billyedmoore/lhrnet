@@ -108,13 +108,37 @@ def save_state_as_csv(csv_file_path: str, state: List[List[bool]]):
         f.write(csv_str[:-1])
 
 
+def get_known_state(config: Config, timestamp: int):
+    """
+    Get the known state at a given timestamp if one exists else -1.
+
+    Args:
+        config (Config): The config object including the known states
+        timestamp (int): The timestamp to find the known state for
+
+    Returns:
+        int: The state at the time or -1 if no state was listed
+    """
+    for (start, end), value in config.get_known_times():
+        if start.timestamp() < timestamp and end.timestamp() > timestamp:
+            return value
+    return -1
+
+
 def main():
     config = Config("config.json")
     states = get_raw_states("raw_data.json")
+    csv_string = ""
     for state in states:
         timestamp, pixels = process_state(config, state)
+        print(timestamp)
+        state = get_known_state(config, timestamp)
         if any([any(row) for row in pixels]):
             save_state_as_csv(f"data/{timestamp}.csv", pixels)
+            if state != -1:
+                csv_string += f"{timestamp}.csv,{state}\n"
+    with open("data/dataset_details.csv", "w") as f:
+        f.write(csv_string[:-1])
 
 
 if __name__ == "__main__":
