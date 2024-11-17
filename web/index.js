@@ -34,7 +34,17 @@ function fetchStateFromOpenSky(config) {
 			console.log(arr)
 			var t = document.getElementById("value_array");
 			t.innerHTML = "" // Clear existing_children
-			create_canvas_from_pixels(t, arr, Math.floor((window.innerWidth / arr[0].length) * 0.8))
+
+			var zero_colour = [10, 10, 10, 255]
+			var one_colour = [250, 250, 250, 255]
+
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				temp = zero_colour
+				zero_colour = one_colour
+				one_colour = temp
+			}
+			img_multiplier = Math.floor((window.innerWidth / arr[0].length) * 0.8)
+			create_canvas_from_pixels(t, arr, img_multiplier, one_colour = one_colour, zero_colour = zero_colour)
 			return [return_val[0], arr]
 		}).then((return_val) => console.log(return_val[0]));
 }
