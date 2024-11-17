@@ -143,7 +143,7 @@ def save_train_and_test(test_csv_path :str,train_csv_path: str,test_proportion :
     number_for_test =int(len(train_rows)*test_proportion)
     print(f"Testing allocated {number_for_test} of {len(rows)}")
     for _ in range(number_for_test):
-        i = random.randint(0,len(train_rows))
+        i = random.randint(0,len(train_rows)-1)
         test_rows.append(train_rows[i])
         del train_rows[i]
 
