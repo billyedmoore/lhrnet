@@ -34,13 +34,7 @@ function fetchStateFromOpenSky(config) {
 			console.log(arr)
 			var t = document.getElementById("value_array");
 			t.innerHTML = "" // Clear existing_children
-			for (var row of arr) {
-				var str = row.join("");
-				t.appendChild(document.createTextNode(str))
-				br = document.createElement("span")
-				br.innerHTML = "<br/>"
-				t.appendChild(br)
-			}
+			create_canvas_from_pixels(t, arr, Math.floor((window.innerWidth / arr[0].length) * 0.8))
 			return [return_val[0], arr]
 		}).then((return_val) => console.log(return_val[0]));
 }
