@@ -39,7 +39,6 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
         x_arr = []
         for i in range(lower_bound,upper_bound):
             x_arr.append(np.genfromtxt("data/" + self.x_file_arr[i],delimiter=","))
-        y = tf.keras.utils.to_categorical(self.y_arr[lower_bound:upper_bound],num_classes=2)
+        y = tf.keras.utils.to_categorical(self.y_arr[lower_bound:upper_bound],num_classes=8)
         x = np.array(x_arr)
-        print(x.shape)
         return x,y

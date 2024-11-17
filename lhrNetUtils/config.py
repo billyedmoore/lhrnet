@@ -13,6 +13,8 @@ class Config:
         "longOffset",
         "xLength",
         "yLength",
+        "knownTimes",
+        "states"
     ]
 
     def __init__(self, config_file_path: str):
@@ -41,6 +43,9 @@ class Config:
 
             times.append(((start, end), known_time["value"]))
         return times
+    
+    def get_states(self):
+        return self._config["states"]
 
     def get_heathrow_lat(self):
         return self._config["HeathrowLat"]

@@ -20,12 +20,27 @@
 			"start": "2024-11-15T15:00:00+00:00",
 			"end": "2024-11-15T22:00:00+00:00",
 			"value": 0
+		},
+		{
+			"start": "2024-11-17T06:00:00+00:00",
+			"end": "2024-11-17T07:00:00+00:00",
+			"value": 6
+		},
+		{
+			"start": "2024-11-17T00:00:00+00:00",
+			"end": "2024-11-17T06:00:00+00:00",
+			"value": 4
 		}
 	],
 	"states": [
 		"Westerly, Landing Northern, Take Off Southern",
 		"Westerly, Landing Southern, Take Off Northern",
 		"Easterly, Landing Northern, Take Off Southern",
-		"Easterly, Landing Southern, Take Off Northern"
+		"Easterly, Landing Southern, Take Off Northern",
+		"Night (limited movements sometimes single runway)",
+		"Westerly, Landing Both, Take Off Southern",
+		"Westerly, Landing Both, Take Off Northern",
+		"Easterly, Landing Both, Take Off Southern",
+		"Easterly, Landing Both, Take Off Northern"
 	]
 }
