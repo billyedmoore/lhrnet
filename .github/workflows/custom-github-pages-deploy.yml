@@ -4,7 +4,7 @@ name: Deploy the /web directory to github pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [$default-branch]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,13 +26,12 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Copy config
-        run: cp ${{ github.workspace }}/config.json  ${{ github.workspace }}/web/config_link.json
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Move config
+        run: cp config.json web/config_link.json
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with jekyll
