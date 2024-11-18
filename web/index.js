@@ -31,6 +31,17 @@ function fetchStateFromOpenSky(config) {
 		.then((json) => openSkyJsonToInput(config, json))
 		.then((return_val) => {
 			arr = return_val[1]
+			make_inference(arr).then(
+				(vals) => {
+					result_data = vals[0];
+					elem = vals[1];
+					var t = document.getElementById("value_array");
+					t.appendChild(elem)
+					console.log(result_data)
+				}
+			)
+
+			run_model(arr)
 			console.log(arr)
 			var t = document.getElementById("value_array");
 			t.innerHTML = "" // Clear existing_children
