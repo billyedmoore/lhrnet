@@ -29,14 +29,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Copy config
+        run: cp "./config.json" "./web/config_link.json"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-      - name: Copy config
-        run: cp "./config.json" "./web/config_link.json"
         with:
           path: './web'
       - name: Deploy to GitHub Pages
