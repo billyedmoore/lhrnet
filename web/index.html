@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>LHRnet</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <script src="create_img.js"></script>
+    <script src="run_model.js"></script>
+    <script src="index.js"></script>
+    <main>
+        <h1>Welcome to LHRnet</h1>  
+        <div>
+          <button onclick="loadButtonPressed()">Click To Predict</button>
+          <div id="value_array"></div>
+        </div>
+    </main>
+  </body>
+</html>
