@@ -37,6 +37,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build with jekyll
         uses: actions/jekyll-build-pages@v1
+        with:
           source: ./web/
           destination: ./_site
       - name: Upload artifact
