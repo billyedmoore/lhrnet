@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Copy config
-        run: cp "./config.json" "./web/config_link.json"
+        run: ls 
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
