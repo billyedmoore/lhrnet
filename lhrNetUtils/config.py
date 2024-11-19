@@ -13,7 +13,7 @@ class Config:
         "longOffset",
         "xLength",
         "yLength",
-        "knownTimes",
+        "knownStatesFile",
         "states"
     ]
 
@@ -36,7 +36,9 @@ class Config:
             list((datetime,datetime),int): A tuple (start,end) and the state (as the index of the state)
         """
         times = []  # (datetime,datetime),value
-        raw_times = self._config["knownTimes"]
+        with open(self._config["knownStatesFile"],"r") as f:
+            raw_times = json.load(f)
+
         for known_time in raw_times:
             start = datetime.fromisoformat(known_time["start"])
             end = datetime.fromisoformat(known_time["end"])
