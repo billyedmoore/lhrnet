@@ -3,6 +3,7 @@ import random
 import json
 
 from lhrNetUtils import Config
+from lhrNetUtils.rle import rle_encode
 
 # For create_image_of_state only
 from PIL import Image
@@ -162,8 +163,8 @@ def main():
         print(timestamp)
         state = get_known_state(config, timestamp)
         if any([any(row) for row in pixels]) and state != -1:
-            save_state_as_csv(f"data/{timestamp}.csv", pixels)
-            rows.append(f"{timestamp}.csv,{state}\n")
+            #save_state_as_csv(f"data/{timestamp}.csv", pixels)
+            rows.append(f"{rle_encode(pixels)},{state}\n")
 
     save_train_and_test("data/test_details.csv","data/train_details.csv",0.3,rows)
 
