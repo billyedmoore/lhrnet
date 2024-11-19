@@ -1,5 +1,4 @@
-
-window.onload = getState()
+window.onload = getState
 
 function getState() {
 	fetch("./config_link.json")
