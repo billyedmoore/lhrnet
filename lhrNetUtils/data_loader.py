@@ -5,7 +5,7 @@ import math
 from .rle import rle_decode
 
 class lhrNetDataLoader(tf.keras.utils.PyDataset):
-    def __init__(self,csv_path,n_cols,n_rows,batch_size,**kwarg):
+    def __init__(self,csv_path,n_cols,n_rows,n_states,batch_size,**kwarg):
         super().__init__(**kwarg)
         self.batch_size = batch_size
 
@@ -14,6 +14,8 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
 
         self.n_rows = n_rows
         self.n_cols = n_cols
+
+        self.n_states = n_states
 
         with open(csv_path,"r") as f:
             for line in f:
@@ -44,6 +46,6 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
         x_arr = []
         for i in range(lower_bound,upper_bound):
             x_arr.append(rle_decode(self.x_rle_arr[i],self.n_rows,self.n_cols))
-        y = tf.keras.utils.to_categorical(self.y_arr[lower_bound:upper_bound],num_classes=8)
+        y = tf.keras.utils.to_categorical(self.y_arr[lower_bound:upper_bound],num_classes=self.n_states)
         x = np.array(x_arr)
         return x,y

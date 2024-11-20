@@ -7,14 +7,12 @@
 	"yLength": 32,
 	"knownStatesFile": "data/known_states.json",
 	"states": [
-		"Westerly, Landing Northern, Take Off Southern",
-		"Westerly, Landing Southern, Take Off Northern",
-		"Easterly, Landing Northern, Take Off Southern",
-		"Easterly, Landing Southern, Take Off Northern",
-		"Night (limited movements sometimes single runway)",
-		"Westerly, Landing Both, Take Off Southern",
-		"Westerly, Landing Both, Take Off Northern",
-		"Easterly, Landing Both, Take Off Southern",
-		"Easterly, Landing Both, Take Off Northern"
+		"Westerly, Landing on Northern Runway, Taking Off from Southern Runway",
+		"Westerly, Landing on Southern Runway, Taking Off from Northern Runway",
+		"Easterly, Landing on Northern Runway, Taking Off from Southern Runway",
+		"Night (Limited Operations)",
+		"Westerly, Landing on Both Runways, Take Off from Southern Runway",
+		"Westerly, Landing on Both Runways, Take Off from Northern Runway",
+		"Easterly, Landing on Both Runways, Take Off from Southern Runway"
 	]
 }
