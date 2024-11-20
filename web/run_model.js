@@ -2,7 +2,7 @@ async function run_model(state) {
 	console.log("running model")
 	const session = await ort.InferenceSession.create("./model.onnx")
 	const inp = Float32Array.from(state.flat(Infinity))
-	const tensor = new ort.Tensor("float32", inp, [1, 64, 32])
+	const tensor = new ort.Tensor("float32", inp, [1, 32, 64])
 
 	const feeds = { input: tensor }
 	const results = await session.run(feeds)
