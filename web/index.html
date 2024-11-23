@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>LHRnet</title>
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-    <script src="create_img.js"></script>
-    <script src="run_model.js"></script>
-    <script src="index.js"></script>
-    <main>
-        <h1>Welcome to LHRnet</h1>  
-        <div>
-          <div id="value_array"></div>
-        </div>
-    </main>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Runways, Heathrow, Airport, London, Planes, Aircraft">
+  <meta name="author" content="Billy Moore">
+  <meta name="description" content="Know at a glance how planes are arriving and deparing London Heathrow airport.">
+  <link rel="stylesheet" href="style.css">
+  <title>LHR Net: Live Heathrow Runway Updates Courtesy of a Neural Network</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+  <script src="create_img.js"></script>
+  <script src="run_model.js"></script>
+  <script src="index.js"></script>
+  <main>
+    <h1>Welcome to LHRnet</h1>
+    <p>Live Heathrow runway updates produced by a neural network using <a class="link"
+        href="https://opensky-network.org/">open sky
+        network</a> data.
+    <div>
+      <div id="value_array"></div>
+    </div>
+  </main>
+</body>
+
 </html>

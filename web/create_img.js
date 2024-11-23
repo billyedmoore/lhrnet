@@ -28,6 +28,7 @@ function create_canvas_from_pixels(parentElem, pixels, enlarge_times, zero_colou
 
 	imgData = new ImageData(Uint8ClampedArray.from(image.flat(Infinity)), width, height);
 	const canvas = document.createElement("canvas");
+	canvas.id = "planes_matrix"
 	canvas.width = width
 	canvas.height = height;
 	const context = canvas.getContext("2d");

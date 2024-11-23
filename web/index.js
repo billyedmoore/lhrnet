@@ -8,7 +8,8 @@ function getState() {
 
 function handleErrorsAndGetJson(response) {
 	if (!response.ok) {
-		throw new Error("Response to OpenSky failed.")
+		displayError(response)
+		throw new Error("Request to OpenSky failed.")
 	}
 	return response.json()
 }
@@ -54,7 +55,8 @@ function fetchStateFromOpenSky(config) {
 			img_multiplier = Math.floor((window.innerWidth / arr[0].length) * 0.8)
 			create_canvas_from_pixels(t, arr, img_multiplier, one_colour = one_colour, zero_colour = zero_colour)
 			return [return_val[0], arr]
-		}).then((return_val) => console.log(return_val[0]));
+		}).then((return_val) => console.log(return_val[0]))
+		.catch((err) => console.log(err));
 }
 
 
@@ -91,4 +93,20 @@ function openSkyJsonToInput(config, response_json) {
 		}
 	}
 	return [timestamp, pixels]
+}
+
+
+function displayError(response) {
+	codes = { "429": " too many requests (the daily rate limit has been hit)" };
+	var t = document.getElementById("value_array");
+	var dv = document.createElement("div");
+	dv.className = "err";
+
+	innerhtml = `<p>Open sky network returned HTTP status \"${response.status}\"`;
+	if (response.status in codes) {
+		innerhtml += `${codes[response.status]}`
+	}
+	innerhtml += "</p>"
+	dv.innerHTML = innerhtml
+	t.appendChild(dv)
 }

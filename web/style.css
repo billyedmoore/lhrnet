@@ -1,12 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
+
 body {
   background-color: rgb(40, 40, 40);
   color: rgb(240, 240, 240);
-  font-family: sans-serif;
+  font-family: "Fira Code", monospace;
+  font-size: large
 }
 
 button {
   background-color: rbg(150, 150, 150);
-  font-size: 25px;
+}
+
+.link {
+  color: rgb(158, 225, 57);
+  text-shadow: 1px 1px 10px green, 1px 1px 10px green;
+}
+
+.planes_matrix {
+  width: 60%;
+}
+
+.err {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 15px;
 }
 
 @media screen and (prefers-color-scheme: light) {
