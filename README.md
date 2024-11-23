@@ -1,5 +1,5 @@
 # LHR Net
-View the website in production [here](https//lhr.billyedmoore.com).
+View the website in production [here](https://lhr.billyedmoore.com).
 
 ## About
 
