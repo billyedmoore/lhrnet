@@ -167,3 +167,5 @@ data/
 out.png
 
 /web/config_link.json
+
+/.vscode

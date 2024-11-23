@@ -33,15 +33,15 @@ function fetchStateFromOpenSky(config) {
 				(vals) => {
 					result_data = vals[0];
 					elem = vals[1];
-					var t = document.getElementById("value_array");
+					var t = document.getElementById("result-target");
+					t.innerHTML = "" // Clear existing children
 					t.appendChild(elem)
 					console.log(result_data)
 				}
 			)
 
 			run_model(arr)
-			console.log(arr)
-			var t = document.getElementById("value_array");
+			var t = document.getElementById("image-target");
 			t.innerHTML = "" // Clear existing_children
 
 			var zero_colour = [10, 10, 10, 255]
@@ -89,7 +89,7 @@ function openSkyJsonToInput(config, response_json) {
 			(y >= 0 && y < config["yLength"])) {
 			pixels[y][x] = 1
 		} else {
-			console.log(`Failed to get (${x}, ${y})`)
+			console.log(`Failed to get(${x}, ${y})`)
 		}
 	}
 	return [timestamp, pixels]
@@ -98,7 +98,7 @@ function openSkyJsonToInput(config, response_json) {
 
 function displayError(response) {
 	codes = { "429": " too many requests (the daily rate limit has been hit)" };
-	var t = document.getElementById("value_array");
+	var t = document.getElementById("error-target");
 	var dv = document.createElement("div");
 	dv.className = "err";
 
