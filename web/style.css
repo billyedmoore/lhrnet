@@ -1,12 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
 
+:root {
+  --footer-size: 100px;
+
+}
+
 html {
     position: relative;
     min-height: 100%;
 }
 
 body{
-  margin-bottom:150px;
+  margin-bottom:calc(var(--footer-size) + 50px);
   background-color: rgb(40, 40, 40);
   color: rgb(240, 240, 240);
   font-family: "Fira Code", monospace;
@@ -21,6 +26,10 @@ body{
 }
 
 @media screen and (max-width:780px){
+  :root{
+    --footer-size:150px !important;
+  }
+
   .content{
     padding-left:5% !important;
     padding-right:5% !important;
@@ -42,7 +51,7 @@ body{
   bottom:0;
   left:0;
   width:100%;
-  height:100px;
+  height:var(--footer-size);
 }
 
 .footer-left { 
