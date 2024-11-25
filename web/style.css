@@ -6,33 +6,33 @@
 }
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
-body{
-  margin-bottom:calc(var(--footer-size) + var(--body-bottom-padding));
+body {
+  margin-bottom: calc(var(--footer-size) + var(--body-bottom-padding));
   background-color: rgb(40, 40, 40);
   color: rgb(240, 240, 240);
   font-family: "Fira Code", monospace;
 }
 
 .content {
-  padding-left:20%;
-  padding-right:20%;
-  margin-left:auto;
-  margin-right:auto;
+  padding-left: 20%;
+  padding-right: 20%;
+  margin-left: auto;
+  margin-right: auto;
   display: block;
 }
 
-@media screen and (max-width:780px){
-  :root{
-    --footer-size:130px !important;
+@media screen and (max-width:780px) {
+  :root {
+    --footer-size: 130px !important;
   }
 
-  .content{
-    padding-left:5% !important;
-    padding-right:5% !important;
+  .content {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
   }
 }
 
@@ -45,34 +45,38 @@ body{
   width: 100%
 }
 
-.footer { 
+.footer {
   background-color: black;
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:var(--footer-size);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: small;
+  height: var(--footer-size);
 }
 
-.footer-left { 
-  float:left;
-  display:inline;
-  width:49%;
-  text-align:left;
-}
-.footer-right { 
-  float:right; 
-  display:inline; 
-  width:49%; 
-  text-align:left;}
-
-.floated-right{
-  float:right;
+.footer-left {
+  float: left;
+  display: inline;
+  width: 49%;
+  text-align: left;
 }
 
-.floated-left{
-  float:left;
+.footer-right {
+  float: right;
+  display: inline;
+  width: 49%;
+  text-align: left;
 }
+
+.floated-right {
+  float: right;
+}
+
+.floated-left {
+  float: left;
+}
+
 .err {
   padding: 20px;
   background-color: #f44336;
