@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
 
 :root {
-  --footer-size: 100px;
+  --footer-size: 50px;
   --body-bottom-padding: 100px;
 }
 
@@ -27,7 +27,7 @@ body {
 
 @media screen and (max-width:780px) {
   :root {
-    --footer-size: 130px !important;
+    --footer-size: 80px !important;
   }
 
   .content {
