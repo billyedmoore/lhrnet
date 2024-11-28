@@ -1,4 +1,6 @@
 import tensorflow as tf
+
+from sklearn.utils import class_weight
 import numpy as np
 import math
 
@@ -17,6 +19,7 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
 
         self.n_states = n_states
 
+
         with open(csv_path,"r") as f:
             for line in f:
                 elems = line.split(",")
@@ -29,6 +32,34 @@ class lhrNetDataLoader(tf.keras.utils.PyDataset):
         Number of batches
         """
         return math.ceil(len(self.y_arr)/self.batch_size)
+
+    @property
+    def X(self):
+        """
+        Get the y dataset
+
+        Returns:
+            (np.array): xs for the data
+        """
+        arr = None
+
+        for i in range(len(self)):
+            if isinstance(arr,np.ndarray):
+                arr = np.concatenate((arr,self[i][0]))
+            else:
+                arr = np.array(self[i][0])
+
+        return arr
+
+    @property
+    def y(self):
+        """
+        Get the y dataset
+
+        Returns:
+            (np.array): ys for the data (aka labels)
+        """
+        return tf.keras.utils.to_categorical(self.y_arr,num_classes=self.n_states)
 
     def __getitem__(self,batch_index):
         """
