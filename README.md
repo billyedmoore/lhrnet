@@ -69,3 +69,11 @@ For example a snippet of "Night" states looks like:
 If you then run ```notebook.ipynb``` it will produce ```model.keras``` and ```model.onnx```. You will
 also be able to see how the model is performing, like any machine learning problem more data is 
 generally better for performance so the longer you can run the fetch script the better. 
+
+## Possible Future Improvements
+
++ Modify fetch_raw_data.py and process_raw_states.py to save and load from a sqlite database rather than 
+    json (currently each state is 0.625 kilobytes so if we assume we can load json files up to 0.5 gigabytes
+    we are limited to 800,000 states, which at our fetch rate (once every ~5 mins) would only take 7.6 years).
++ Implement alternative strategies to handle oversampling or remove classes for landing on both runways (only 
+    applicable from 06:00-07:00 each morning) as they are currently largely ignored by the model.
