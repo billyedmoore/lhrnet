@@ -7,12 +7,44 @@
 	"yLength": 32,
 	"knownStatesFile": "data/known_states.json",
 	"states": [
-		"Westerly, Landing on Northern Runway, Taking Off from Southern Runway",
-		"Westerly, Landing on Southern Runway, Taking Off from Northern Runway",
-		"Easterly, Landing on Northern Runway, Taking Off from Southern Runway",
-		"Night (Limited Operations)",
-		"Westerly, Landing on Both Runways, Take Off from Southern Runway",
-		"Westerly, Landing on Both Runways, Take Off from Northern Runway",
-		"Easterly, Landing on Both Runways, Take Off from Southern Runway"
+		{
+			"night": false,
+			"direction": "Westerly",
+			"departures": "Southern",
+			"arrivals": "Northern"
+		},
+		{
+			"night": false,
+			"direction": "Westerly",
+			"departures": "Northern",
+			"arrivals": "Southern"
+		},
+		{
+			"night": false,
+			"direction": "Easterly",
+			"departures": "Southern",
+			"arrivals": "Northern"
+		},
+		{
+			"night": true
+		},
+		{
+			"night": false,
+			"direction": "Westerly",
+			"departures": "Southern",
+			"arrivals": "Both"
+		},
+		{
+			"night": false,
+			"direction": "Westerly",
+			"departures": "Northern",
+			"arrivals": "Both"
+		},
+		{
+			"night": false,
+			"direction": "Easterly",
+			"departures": "Northern",
+			"arrivals": "Both"
+		}
 	]
 }
