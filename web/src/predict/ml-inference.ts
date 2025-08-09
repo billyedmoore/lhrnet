@@ -3,7 +3,14 @@ import type { Config } from './types';
 
 export async function runModel(state: boolean[][], model_path: string, config: Config) {
   console.log(`Running model ${model_path}`)
-  const session = await ort.InferenceSession.create(model_path)
+  let session: ort.InferenceSession;
+  try {
+    session = await ort.InferenceSession.create(model_path)
+  }
+  catch (e) {
+    console.log(e)
+    throw new Error(`Failed to create inference session, maybe WASM is not available.`)
+  }
   const flatNumericArr = state.flat(Infinity).map(bool => (bool ? 1 : 0));
   const inp = Float32Array.from(flatNumericArr);
   const tensor = new ort.Tensor("float32", inp, [1, 32, 64]);
