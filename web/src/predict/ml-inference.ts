@@ -18,14 +18,12 @@ export async function runModel(state: boolean[][], model_path: string, config: C
   const feeds = { input: tensor }
   const results = await session.run(feeds)
 
-  // @ts-ignore: Output will be Float32Array because input is Float32Array, can safely
-  // assert this type
-  const data: Float32Array = await results.output.getData()
+  const data: Float32Array = await results.output.getData() as Float32Array
 
   console.log(data)
 
   const highestProb = Math.max(...data)
-  const predicedStateIndex = data.indexOf(highestProb);
+  const predictedStateIndex = data.indexOf(highestProb);
 
-  return { predictedState: config.states[predicedStateIndex], probability: highestProb }
+  return { predictedState: config.states[predictedStateIndex], probability: highestProb }
 }
