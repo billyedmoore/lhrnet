@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
           <p>See <FooterLink href="https://github.com/billyedmoore/lhrnet/">the repository</FooterLink> behind the project.</p>
         </div>
         <div className="p-4 flex-1 place-items-center">
-          <p>I needed a third <FooterLink href="https://www.github.com/billyedmoore/">link</FooterLink> for aesthetic reasons.</p>
+          <p>Three <FooterLink href="https://england.shelter.org.uk/donate">links</FooterLink> look better than two.</p>
         </div>
       </div>
 
