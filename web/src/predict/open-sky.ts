@@ -47,7 +47,7 @@ export async function fetchStateFromOpenSky(config: Config) {
   const response = await fetch(`${base_url}lamin=${lat_min}&lamax=${lat_max}&lomin=${long_min}&lomax=${long_max}`)
 
   if (!response.ok) {
-    throw new Error("Request to OpenSkyFailed")
+    throw new Error(`${response.status} Request to Open Sky Failed, ${response.statusText}.`)
   }
 
   const statesObject: OpenSkyStatesObject = await response.json()

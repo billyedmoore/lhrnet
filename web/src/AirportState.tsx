@@ -53,6 +53,25 @@ const NightPrediction: React.FC<PredictionProps> = ({ prediction }) => {
   </div >)
 }
 
+interface PredictionErrorProps {
+  error: Error
+}
+
+const PredictionError: React.FC<PredictionErrorProps> = ({ error }) => {
+  return (
+    <div className="flex w-3/4 justify-center items-center text-3xl">
+      <p className="bg-red-300 dark:bg-red-950 rounded-xl p-8"><b>{error.name}</b>{` - ${error.message}`}</p>
+    </div >)
+}
+
+const LoadingSpinner: React.FC = () => {
+  return (
+    <div className="flex items-center justify-center">
+      <div className="w-30 h-30 border-15 rounded-full animate-spin border-l-fuchsia-400 border-fuchsia-300 dark:border-l-fuchsia-950 dark:border-fuchsia-900 animate-spin motion-reduce:hidden"></div>
+      <div className="text-4xl motion-safe:hidden"><p>Loading...</p></div>
+    </div>
+  )
+}
 
 const EmphText: React.FC<PropsWithChildren> = ({ children }) => {
   return (<p className="font-mono text-6xl" >{children}</p>)
@@ -62,22 +81,26 @@ const QuietText: React.FC<PropsWithChildren> = ({ children }) => {
   return (<p className="text-sm space-y-2" >{children}</p>)
 }
 
+
 const AirportState: React.FC = () => {
-  // @ts-ignore: The json seems fine, fingers crossed. Times like this I wish json had static types.
-  const predictionConfig: Config = config
+  const predictionConfig: Config = config as Config
 
   const [prediction, setPrediction] = React.useState<null | Prediction>(null)
+  const [err, setError] = React.useState<null | Error>(null)
 
   React.useEffect(() => {
-    // TODO: have an error state and handle the errors
-    predict(predictionConfig).then(prediction => setPrediction(prediction))
+    predict(predictionConfig).then(prediction => setPrediction(prediction)).catch(error => setError(error))
   }, [])
+
+  if (err != null) {
+    return <PredictionError error={err} />
+  }
 
   return (
     <>
       {prediction ?
         (prediction.predictedState.night ? <NightPrediction prediction={prediction} /> : <DayPrediction prediction={prediction} />)
-        : <p> LOADING ... </p>}
+        : <LoadingSpinner />}
     </>
   );
 };
