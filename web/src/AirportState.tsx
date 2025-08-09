@@ -1,14 +1,10 @@
 import type { Config } from './predict/types';
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 import config from "./assets/prediction-config.json"
 import type { Prediction } from './predict/predict'
 import { predict } from './predict/predict';
 
-interface ChildrenOnlyProps {
-  children: React.ReactNode;
-}
-
-const PredictionRow: React.FC<ChildrenOnlyProps> = ({ children }) => {
+const PredictionRow: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className="flex items-center justify-center space-x-2 flex-col sm:flex-row flex-wrap">{children}</div>
 }
 
@@ -58,11 +54,11 @@ const NightPrediction: React.FC<PredictionProps> = ({ prediction }) => {
 }
 
 
-const EmphText: React.FC<ChildrenOnlyProps> = ({ children }) => {
+const EmphText: React.FC<PropsWithChildren> = ({ children }) => {
   return (<p className="font-mono text-6xl" >{children}</p>)
 }
 
-const QuietText: React.FC<ChildrenOnlyProps> = ({ children }) => {
+const QuietText: React.FC<PropsWithChildren> = ({ children }) => {
   return (<p className="text-sm space-y-2" >{children}</p>)
 }
 
@@ -75,7 +71,6 @@ const AirportState: React.FC = () => {
   React.useEffect(() => {
     // TODO: have an error state and handle the errors
     predict(predictionConfig).then(prediction => setPrediction(prediction))
-    setPrediction(prediction)
   }, [])
 
   return (
