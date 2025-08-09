@@ -24,11 +24,10 @@ in the browser using data fetched from the [open-sky network](https://opensky-ne
 
 ### Running the existing model
 
-To run the model on live data without set up you can check out the 
-[website](https://lhr.billyedmoore.com) (see the code for this in the /web directory 
-or in the browser as it isn't minified).
+Run the model on live data in the browser using the
+[website](https://lhr.billyedmoore.com). See the [web README](./web/README.md) for more details.
 
-Alternatively the model is available (/web/model.onnx) in Onnx format. The model takes as input a
+Alternatively the model is available (/web/public/model.onnx) in Onnx format. The model takes as input a
 ```config[xLength] x config[yLength]``` matrix of 0s and 1s where 0 represents the 
 absence of a plane and 1 the presence of at least one plane. The distance from the 
 center point (+-```config[latOffset]``` and +-```config[longOffset]```) and the center 
@@ -38,8 +37,8 @@ in the config file ```config.json```.
 ### Train the model yourself
 
 To train your own model you can run ```python fetch_raw_states.py``` for a few days (if 
-you are a researcher with access to the open sky historic dataset then you could do this
-instantly and would have access to a bigger training set) this will make an api request
+you are a researcher with access to the open sky historic dataset then you could modify the fetch
+script to fetch historic states saving the need for this) this will make an api request
 for our target area every ~5mins and save the result.
 
 Then you can create a known_states file by default located at ```/data/known_states.json``` 
@@ -47,7 +46,7 @@ Then you can create a known_states file by default located at ```/data/known_sta
 timeline of states, this should take the form of a list of objects each in the form:
 ```json
 {
- "start": "2024-12-12T07:00:00+00:00", // ISO 8601 end time
+ "start": "2024-12-12T07:00:00+00:00", // ISO 8601 start time
  "end":   "2024-12-12T15:00:00+00:00", // ISO 8601 end time
  "value": 1 // the index of the state in config[states]
 }
@@ -67,11 +66,16 @@ For example a snippet of "Night" states looks like:
 ```
 
 If you then run ```notebook.ipynb``` it will produce ```model.keras``` and ```model.onnx```. You will
-also be able to see how the model is performing, like any machine learning problem more data is 
-generally better for performance so the longer you can run the fetch script the better. 
+also be able to see how the model is performing, like most machine learning problems more data is 
+generally better for performance, the model for the web-app is trained on about 10 days of data. Typically you
+will need to do this over a few weeks to ensure you capture all the states.
 
 ## Possible Future Improvements
 
++ Stats-for-nerds in the web-app:
+    + Number of planes in the rectangle.
+    + Graph of the plane locations.
+    + Some details about the different planes (maybe % heavy vs super heavy or somthing like this).
 + Modify fetch_raw_data.py and process_raw_states.py to save and load from a sqlite database rather than 
     json (currently each state is 0.625 kilobytes so if we assume we can load json files up to 0.5 gigabytes
     we are limited to 800,000 states, which at our fetch rate (once every ~5 mins) would only take 7.6 years).
