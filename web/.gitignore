@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Populated from ../config.json in the build step
+src/assets/prediction-config.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

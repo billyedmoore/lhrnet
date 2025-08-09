@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "jq 'del(.[\"knownStatesFile\"])' ../config.json > ./src/assets/prediction-config.json; vite",
+    "build": "jq 'del(.[\"knownStatesFile\"])' ../config.json > ./src/assets/prediction-config.json; tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "onnxruntime-web": "^1.22.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.11"
