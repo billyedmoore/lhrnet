@@ -67,7 +67,7 @@ const PredictionError: React.FC<PredictionErrorProps> = ({ error }) => {
 const LoadingSpinner: React.FC = () => {
   return (
     <div className="flex items-center justify-center">
-      <div className="w-30 h-30 border-15 rounded-full animate-spin border-l-fuchsia-400 border-fuchsia-300 dark:border-l-fuchsia-950 dark:border-fuchsia-900 animate-spin motion-reduce:hidden"></div>
+      <div className="w-30 h-30 border-15 rounded-full border-l-fuchsia-400 border-fuchsia-300 dark:border-l-fuchsia-950 dark:border-fuchsia-900 animate-spin motion-reduce:hidden"></div>
       <div className="text-4xl motion-safe:hidden"><p>Loading...</p></div>
     </div>
   )

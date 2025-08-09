@@ -78,7 +78,7 @@ function parseOpenSkyResponse(config: Config, response_json: OpenSkyStatesObject
 
     // If no lat or no long ignore plane
     if (lat === null || long === null) {
-      console.log(`Skipped ${response_json.states[1]}, no lat and/or no long`)
+      console.log(`Skipped ${response_json.states[i]}, no lat and/or no long`)
       continue
     }
 
