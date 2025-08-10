@@ -11,6 +11,7 @@ import {
   ReferenceDot
 } from 'recharts';
 import type { Config } from '../types';
+import { StatBoxTitle } from './StatBoxTitle';
 
 interface PositionMapProps {
   aircraftStates: OpenSkyStates
@@ -28,7 +29,7 @@ export const PositionMap: React.FC<PositionMapProps> = ({ aircraftStates, config
 
   return (
     <>
-      <p> Aircraft Positions </p>
+      <StatBoxTitle title="AIRCRAFT-POSITIONS" />
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart
           margin={{
