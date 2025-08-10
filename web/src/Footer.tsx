@@ -14,7 +14,7 @@ interface FooterElemProps extends PropsWithChildren {
 
 const FooterElem: React.FC<FooterElemProps> = ({ children, hiddenOnSmallScreens }) => {
   const hideString = (hiddenOnSmallScreens ? " hidden sm:block" : "")
-  return (<div className={`sm:p-4 flex-1 place-items-center${hideString}`} >
+  return (<div className={`sm:p-4 text-gray-900 dark:text-gray-300 flex-1 place-items-center${hideString}`} >
     {children}
   </div >)
 }
