@@ -1,8 +1,8 @@
-import type { Config } from './predict/types';
+import type { Config } from './types';
 import React, { type PropsWithChildren } from 'react';
 import config from "./assets/prediction-config.json"
 import type { Prediction } from './predict/predict'
-import { predict } from './predict/predict';
+import { predict } from './predict';
 
 const PredictionRow: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className="flex items-center justify-center space-x-2 flex-col sm:flex-row flex-wrap">{children}</div>

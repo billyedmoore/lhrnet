@@ -1,5 +1,5 @@
 import * as ort from 'onnxruntime-web';
-import type { Config } from './types';
+import type { Config } from '../types';
 
 export async function runModel(state: boolean[][], model_path: string, config: Config) {
   console.log(`Running model ${model_path}`)
@@ -19,8 +19,6 @@ export async function runModel(state: boolean[][], model_path: string, config: C
   const results = await session.run(feeds)
 
   const data: Float32Array = await results.output.getData() as Float32Array
-
-  console.log(data)
 
   const highestProb = Math.max(...data)
   const predictedStateIndex = data.indexOf(highestProb);

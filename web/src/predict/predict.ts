@@ -1,5 +1,5 @@
-import type { Config, AirportState } from "./types"
-import { fetchStateFromOpenSky } from "./open-sky"
+import type { Config, AirportState } from "../types"
+import { fetchStateFromOpenSky } from "../open-sky"
 import { runModel } from "./ml-inference"
 
 
