@@ -7,7 +7,7 @@ import { PositionMap } from './PositionMap';
 
 
 const StatElem: React.FC<PropsWithChildren> = ({ children }) => {
-  return <div className="w-140 h-64 bg-zinc-100 dark:bg-zinc-900 rounded-lg p-5">{children}</div>
+  return <div className="max-w-140 w-full h-64 bg-zinc-100 dark:bg-zinc-900 rounded-lg p-5">{children}</div>
 }
 
 interface StatsForNerdsProps {
@@ -17,7 +17,7 @@ interface StatsForNerdsProps {
 
 export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 max-sm:basis-9/10 max-sm:py-10">
       <PredictionComponent prediction={prediction} />
 
       <StatElem>
