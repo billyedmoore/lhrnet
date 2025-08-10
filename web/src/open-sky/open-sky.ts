@@ -1,6 +1,6 @@
 import type { Config } from "../types";
 
-import type { OpenSkyStatesResponse, OpenSkyStates, OpenSkyStateObject, OpenSkyStateVector, PredictionInput } from "./types";
+import type { OpenSkyStatesResponse, OpenSkyStates, OpenSkyStateObject, OpenSkyStateVector, StatesPreparedForPrediction } from "./types";
 
 function ConvertStatesToObjects(rawStates: OpenSkyStatesResponse): OpenSkyStates {
   const stateVecToObject = (stateVector: OpenSkyStateVector): OpenSkyStateObject => {
@@ -54,7 +54,8 @@ function ConvertStatesToObjects(rawStates: OpenSkyStatesResponse): OpenSkyStates
   return { ...rawStates, states: newStates }
 }
 
-export async function fetchStateFromOpenSky(config: Config) {
+
+export async function fetchStatesFromOpenSky(config: Config): Promise<StatesPreparedForPrediction> {
   const center_lat = config.HeathrowLat;
   const center_long = config.HeathrowLong;
 
@@ -73,13 +74,10 @@ export async function fetchStateFromOpenSky(config: Config) {
   const rawStates: OpenSkyStatesResponse = await response.json()
   const statesObject: OpenSkyStates = ConvertStatesToObjects(rawStates)
 
-  const { timestamp, pixels } = parseOpenSkyResponse(config, statesObject)
-
-  return { timestamp, pixels }
-
+  return parseOpenSkyResponse(config, statesObject)
 }
 
-function parseOpenSkyResponse(config: Config, aircraftStates: OpenSkyStates): PredictionInput {
+function parseOpenSkyResponse(config: Config, aircraftStates: OpenSkyStates): StatesPreparedForPrediction {
   const timestamp = aircraftStates.time
 
   const pixels: boolean[][] = Array.from({ length: config.yLength }, () =>
@@ -92,7 +90,7 @@ function parseOpenSkyResponse(config: Config, aircraftStates: OpenSkyStates): Pr
   const yBinSize = (config["latOffset"] * 2) / config["yLength"];
 
   if (aircraftStates.states == null) {
-    return { timestamp, pixels }
+    return { timestamp, pixels, aircraftStates }
   }
   for (let i in aircraftStates.states) {
     const long = aircraftStates.states[i]["longitude"]
@@ -117,5 +115,5 @@ function parseOpenSkyResponse(config: Config, aircraftStates: OpenSkyStates): Pr
       console.log(`Failed to get(${x}, ${y})`)
     }
   }
-  return { timestamp, pixels }
+  return { timestamp, pixels, aircraftStates }
 }

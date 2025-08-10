@@ -1,6 +1,7 @@
-export type PredictionInput = {
+export type StatesPreparedForPrediction = {
   timestamp: number,
-  pixels: boolean[][]
+  pixels: boolean[][],
+  aircraftStates: OpenSkyStates
 }
 
 // The shape of the data returned by the API
