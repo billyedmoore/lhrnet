@@ -48,7 +48,7 @@ const AirportState: React.FC<AirportStateProps> = ({ enableStatsForNerds }) => {
   return (
     <>
       {prediction ? (
-        enableStatsForNerds ? <StatsForNerds prediction={prediction} /> : <PredictionComponent prediction={prediction} />)
+        enableStatsForNerds ? <StatsForNerds prediction={prediction} config={predictionConfig} /> : <PredictionComponent prediction={prediction} />)
         : <LoadingSpinner />}
     </>
   );
