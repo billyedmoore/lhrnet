@@ -3,6 +3,7 @@ import { type Prediction } from '../predict';
 import { type Config } from '../types';
 import { PredictionComponent } from '../PredictionComponent';
 import { PositionMap } from './PositionMap';
+import { UselessStats } from './UselessStats';
 
 
 
@@ -17,7 +18,7 @@ interface StatsForNerdsProps {
 
 export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 max-sm:basis-9/10 max-sm:py-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-5 max-sm:basis-9/10 max-sm:py-10">
       <PredictionComponent prediction={prediction} />
 
       <StatElem>
@@ -25,7 +26,7 @@ export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config
       </StatElem>
 
       <StatElem>
-        <PositionMap aircraftStates={prediction.aircraftStates} config={config} />
+        <UselessStats aircraftStates={prediction.aircraftStates} />
       </StatElem>
 
       <StatElem>
