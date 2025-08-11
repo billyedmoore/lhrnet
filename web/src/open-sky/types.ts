@@ -16,7 +16,7 @@ export type OpenSkyStates = {
   states: OpenSkyStateObject[]
 }
 
-enum AircraftCategory {
+export enum AircraftCategory {
   NoInformation = 0,
   NoADSB = 1,
   Light = 2,
