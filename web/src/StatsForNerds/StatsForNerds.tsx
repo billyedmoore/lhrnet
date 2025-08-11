@@ -4,6 +4,7 @@ import { type Config } from '../types';
 import { PredictionComponent } from '../PredictionComponent';
 import { PositionMap } from './PositionMap';
 import { UselessStats } from './UselessStats';
+import { OriginPie } from './OriginPie';
 
 
 
@@ -30,7 +31,7 @@ export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config
       </StatElem>
 
       <StatElem>
-        <PositionMap aircraftStates={prediction.aircraftStates} config={config} />
+        <OriginPie aircraftStates={prediction.aircraftStates} />
       </StatElem>
 
       <StatElem>

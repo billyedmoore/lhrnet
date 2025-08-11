@@ -28,9 +28,9 @@ export const UselessStats: React.FC<UselessStatsProps> = ({ aircraftStates }) =>
   return (
     <>
       <StatBoxTitle title="USELESS-STATS" />
-      <div className="grid grid-col-1 sm:py-5">
+      <div className="grid grid-col-1 sm:py-5 max-sm:text-sm">
         <p>There are <b className="font-mono">{aircraftStates.states.length}</b> aircraft in the rectangle.</p>
-        <p>There are flights originating from <b className="font-mono">{uniqueCountries.size}</b> different countries.</p>
+        <p>There are aircraft registered in <b className="font-mono">{uniqueCountries.size}</b> different countries.</p>
         <p>The highest aircraft has a geometric altitude of <b className="font-mono">{highestAlt}</b> meters. </p>
         <p>There are <b className="font-mono">{emergencies}</b> aircraft currently squawking an emergency.</p>
         <p>The combined speed of all planes is <b className="font-mono">{totalSpeed}</b> meters per second.</p>
