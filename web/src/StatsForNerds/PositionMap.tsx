@@ -46,6 +46,7 @@ export const PositionMap: React.FC<PositionMapProps> = ({ aircraftStates, config
             name="Longitude"
             unit="°"
             domain={[longMin, longMax]}
+            tickFormatter={(value) => value.toFixed(2)}
           />
           <YAxis
             type="number"
@@ -53,6 +54,7 @@ export const PositionMap: React.FC<PositionMapProps> = ({ aircraftStates, config
             name="Latitude"
             unit="°"
             domain={[latMin, latMax]}
+            tickFormatter={(value) => value.toFixed(2)}
           />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
           <Scatter name="Locations" data={aircraftStates.states} fill="#8884d8" />
