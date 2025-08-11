@@ -6,7 +6,8 @@ import {
   Pie,
   Tooltip,
   Cell,
-  LabelList
+  LabelList,
+  Legend
 } from 'recharts';
 
 // GTP Generated colours
@@ -58,7 +59,6 @@ export const OriginPie: React.FC<OriginPieProps> = ({ aircraftStates }) => {
             dataKey="count"
             nameKey="country"
             fill="#8884d8"
-            label={({ country, count }) => `${country} - ${count}`}
           >
             {pieInput.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLOUR[index % COLOUR.length]} />
@@ -66,6 +66,7 @@ export const OriginPie: React.FC<OriginPieProps> = ({ aircraftStates }) => {
             <LabelList dataKey="name" position="insideTop" />
           </Pie>
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+          <Legend iconType='diamond' />
         </PieChart>
       </ResponsiveContainer>
     </>)

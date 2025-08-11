@@ -36,7 +36,7 @@ export const PositionMap: React.FC<PositionMapProps> = ({ aircraftStates, config
             top: 15,
             right: 15,
             bottom: 15,
-            left: 15,
+            left: 0,
           }}
         >
           <CartesianGrid />
