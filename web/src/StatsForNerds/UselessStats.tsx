@@ -1,16 +1,9 @@
-import { type OpenSkyStates } from '../open-sky';
 import { StatBoxTitle } from './StatBoxTitle';
 import React from 'react';
+import type { StatsForNerdsElemProps } from './StatsForNerds';
 
-
-
-interface UselessStatsProps {
-  aircraftStates: OpenSkyStates
-}
-
-export const UselessStats: React.FC<UselessStatsProps> = ({ aircraftStates }) => {
-
-  const BILLY_HEIGHT = 1.85
+export const UselessStats: React.FC<StatsForNerdsElemProps> = ({ aircraftStates }) => {
+  const SHARD_HEIGHT = 310
   const uniqueCountries = new Set(aircraftStates.states.map((s) => { return s.origin_country }))
   const totalSpeed = aircraftStates.states.reduce((acc, s) => {
     if (s.velocity) {
@@ -32,7 +25,7 @@ export const UselessStats: React.FC<UselessStatsProps> = ({ aircraftStates }) =>
       <div className="grid grid-col-1 sm:py-5 max-sm:text-sm">
         <p>There are <b className="font-mono">{aircraftStates.states.length}</b> aircraft in the rectangle.</p>
         <p>There are aircraft registered in <b className="font-mono">{uniqueCountries.size}</b> different countries.</p>
-        <p>The highest aircraft has a geometric altitude of <b className="font-mono">{(highestAlt != 0) ? (highestAlt / BILLY_HEIGHT).toFixed(2) : 0}</b> Billys. </p>
+        <p>The highest aircraft has a geometric altitude of <b className="font-mono">{(highestAlt != 0) ? (highestAlt / SHARD_HEIGHT).toFixed(2) : 0}</b> Shards. </p>
         <p>There are <b className="font-mono">{emergencies}</b> aircraft currently squawking an emergency.</p>
         <p>The combined speed of all planes is <b className="font-mono">{totalSpeed}</b> meters per second.</p>
       </div>

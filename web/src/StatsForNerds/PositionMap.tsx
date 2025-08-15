@@ -1,4 +1,3 @@
-import { type OpenSkyStates } from '../open-sky';
 import React from 'react';
 import {
   ScatterChart,
@@ -10,15 +9,10 @@ import {
   ResponsiveContainer,
   ReferenceDot
 } from 'recharts';
-import type { Config } from '../types';
 import { StatBoxTitle } from './StatBoxTitle';
+import type { StatsForNerdsElemWithConfigProps } from './StatsForNerds';
 
-interface PositionMapProps {
-  aircraftStates: OpenSkyStates
-  config: Config
-}
-
-export const PositionMap: React.FC<PositionMapProps> = ({ aircraftStates, config }) => {
+export const PositionMap: React.FC<StatsForNerdsElemWithConfigProps> = ({ aircraftStates, config }) => {
 
   const centerLat = config["HeathrowLat"]
   const centerLong = config["HeathrowLong"]
