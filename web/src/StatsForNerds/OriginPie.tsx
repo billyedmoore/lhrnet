@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { StatBoxTitle } from './StatBoxTitle';
 import type { StatsForNerdsElemProps } from './StatsForNerds';
 import {
@@ -24,6 +25,23 @@ interface PieInputInterface {
 }
 
 export const OriginPie: React.FC<StatsForNerdsElemProps> = ({ aircraftStates }) => {
+  const [showLegend, setShowLegend] = useState(true);
+
+  const handleResize = () => {
+    // Only show legend on wide devices
+    setShowLegend(window.innerWidth >= 800);
+  };
+
+  useEffect(() => {
+    handleResize()
+
+    window.addEventListener("resize", handleResize);
+
+    // return a cleanup function
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const contriesMap = aircraftStates.states.reduce((countriesMap, state) => {
     if (countriesMap.has(state.origin_country)) {
@@ -62,7 +80,7 @@ export const OriginPie: React.FC<StatsForNerdsElemProps> = ({ aircraftStates }) 
             <LabelList dataKey="name" position="insideTop" />
           </Pie>
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-          <Legend iconType='diamond' />
+          {showLegend && <Legend iconType='diamond' />}
         </PieChart>
       </ResponsiveContainer>
     </>)
