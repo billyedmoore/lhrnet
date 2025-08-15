@@ -72,10 +72,6 @@ will need to do this over a few weeks to ensure you capture all the states.
 
 ## Possible Future Improvements
 
-+ Stats-for-nerds in the web-app:
-    + Number of planes in the rectangle.
-    + Graph of the plane locations.
-    + Some details about the different planes (maybe % heavy vs super heavy or somthing like this).
 + Modify fetch_raw_data.py and process_raw_states.py to save and load from a sqlite database rather than 
     json (currently each state is 0.625 kilobytes so if we assume we can load json files up to 0.5 gigabytes
     we are limited to 800,000 states, which at our fetch rate (once every ~5 mins) would only take 7.6 years).
