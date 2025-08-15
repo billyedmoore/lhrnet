@@ -1,5 +1,6 @@
-import { type OpenSkyStates } from '../open-sky';
 import React from 'react';
+import { StatBoxTitle } from './StatBoxTitle';
+import type { StatsForNerdsElemProps } from './StatsForNerds';
 import {
   ResponsiveContainer,
   PieChart,
@@ -16,18 +17,13 @@ const COLOUR = [
   '#B5EAD7', '#FFDAC1', '#FFB7B2', '#FFD1DC', '#FFADAD', '#AEC6CF', '#B399D3'
 ];
 
-import { StatBoxTitle } from './StatBoxTitle';
-
-interface OriginPieProps {
-  aircraftStates: OpenSkyStates
-}
 
 interface PieInputInterface {
   country: string
   count: number
 }
 
-export const OriginPie: React.FC<OriginPieProps> = ({ aircraftStates }) => {
+export const OriginPie: React.FC<StatsForNerdsElemProps> = ({ aircraftStates }) => {
 
   const contriesMap = aircraftStates.states.reduce((countriesMap, state) => {
     if (countriesMap.has(state.origin_country)) {

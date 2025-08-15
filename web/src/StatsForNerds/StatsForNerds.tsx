@@ -6,8 +6,8 @@ import { PositionMap } from './PositionMap';
 import { UselessStats } from './UselessStats';
 import { OriginPie } from './OriginPie';
 import { FastestCraft } from './FastestCraft';
-
-
+import { LowestCraft } from './LowestCraft';
+import type { OpenSkyStates } from '../open-sky';
 
 const StatElem: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className="max-w-140 w-full h-64 bg-zinc-100 dark:bg-zinc-900 rounded-lg p-5">{children}</div>
@@ -15,6 +15,15 @@ const StatElem: React.FC<PropsWithChildren> = ({ children }) => {
 
 interface StatsForNerdsProps {
   prediction: Prediction,
+  config: Config
+}
+
+export interface StatsForNerdsElemProps {
+  aircraftStates: OpenSkyStates,
+}
+
+export interface StatsForNerdsElemWithConfigProps {
+  aircraftStates: OpenSkyStates,
   config: Config
 }
 
@@ -32,7 +41,7 @@ export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config
       </StatElem>
 
       <StatElem>
-        <OriginPie aircraftStates={prediction.aircraftStates} />
+        <LowestCraft aircraftStates={prediction.aircraftStates} />
       </StatElem>
 
       <StatElem>
@@ -40,7 +49,7 @@ export const StatsForNerds: React.FC<StatsForNerdsProps> = ({ prediction, config
       </StatElem>
 
       <StatElem>
-        <PositionMap aircraftStates={prediction.aircraftStates} config={config} />
+        <OriginPie aircraftStates={prediction.aircraftStates} />
       </StatElem>
 
     </div>)
