@@ -13,8 +13,8 @@ import {
 
 // GTP Generated colours
 const COLOUR = [
-  '#E0BBE4', '#957DAD', '#D291BC', '#FFC7C7', '#FF94A2', '#F0EAD6', '#A0D2DB',
-  '#B5EAD7', '#FFDAC1', '#FFB7B2', '#FFD1DC', '#FFADAD', '#AEC6CF', '#B399D3'
+  '#C69EC7', '#805D97', '#B86FA3', '#FF9494', '#FF6E82', '#D7C8A9', '#83B8C1',
+  '#9DC7B5', '#FFBB98', '#FF8F87', '#FFB4C8', '#FF8E8E', '#8FB1C0', '#9C84B7'
 ];
 
 
