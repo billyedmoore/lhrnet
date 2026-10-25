@@ -23,6 +23,8 @@ builds it on the server and restarts the service. The GitHub Action in
   systemctl restart lhrnet-proxy
   ```
 
+  Other proxy settings, such as `CACHE_SECONDS=25`, can go in the same file.
+
 ## Server setup
 
 Already done, kept here in case the server needs rebuilding. As root:

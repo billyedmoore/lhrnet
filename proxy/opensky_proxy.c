@@ -28,7 +28,6 @@
 #define HOST "opensky-network.org"
 #define AUTH_HOST "auth.opensky-network.org"
 #define AUTH_PATH "/auth/realms/opensky-network/protocol/openid-connect/token"
-#define CACHE_SECONDS 10
 #define BACKOFF_SECONDS 60
 #define BOUNDS "lamin=51.1575&lamax=51.7975&lomin=-1.741389&lomax=0.818611"
 #define MAX_BODY (4 * 1024 * 1024)
@@ -38,6 +37,7 @@ static char *cached_body;
 static size_t cached_len;
 static time_t cached_at, backoff_until, token_expires;
 static char token[2048];
+static int cache_seconds = 25; /* overridden by $CACHE_SECONDS */
 
 static void log_request(int status, const char *cache) {
   char when[32];
@@ -67,7 +67,7 @@ static void reply_cached(int fd, const char *state) {
   char extra[64];
   log_request(200, state);
   snprintf(extra, sizeof extra, "Cache-Control: public, max-age=%d\r\nX-Cache: %s\r\n",
-           CACHE_SECONDS, state);
+           cache_seconds, state);
   reply(fd, 200, extra, cached_body, cached_len);
 }
 
@@ -172,7 +172,7 @@ static void handle(int fd) {
     return reply_error(fd, 404, "not found");
 
   int have = cached_body != NULL;
-  if (have && time(NULL) - cached_at < CACHE_SECONDS) return reply_cached(fd, "HIT");
+  if (have && time(NULL) - cached_at < cache_seconds) return reply_cached(fd, "HIT");
 
   int status = time(NULL) < backoff_until ? 429 : fetch_upstream();
   if (status == 200) return reply_cached(fd, "MISS");
@@ -183,6 +183,7 @@ static void handle(int fd) {
 
 int main(void) {
   signal(SIGPIPE, SIG_IGN);
+  if (getenv("CACHE_SECONDS") && atoi(getenv("CACHE_SECONDS")) > 0) cache_seconds = atoi(getenv("CACHE_SECONDS"));
   ctx = SSL_CTX_new(TLS_client_method());
   SSL_CTX_set_default_verify_paths(ctx);
   SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);

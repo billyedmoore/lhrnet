@@ -8,7 +8,7 @@ it behind Caddy or nginx.
 `GET /data` returns the Open Sky states for a fixed bounding box around Heathrow. The box is
 the `BOUNDS` define in `opensky_proxy.c`, worked out from `config.json`, so update it if the
 `HeathrowLat`, `HeathrowLong`, `latOffset` or `longOffset` values change. Responses are cached
-for 10 seconds, and if Open Sky fails or rate limits (429) the last good response is served.
+for 25 seconds (see `CACHE_SECONDS`), and if Open Sky fails or rate limits (429) the last good response is served.
 Each request is logged to stderr as `<time> <status> <cache> <auth>`, where cache is `HIT`, `MISS`,
 `STALE` or `-` (an error response), and auth is `auth` once the proxy holds an Open Sky token, else `anon`.
 
@@ -27,6 +27,8 @@ curl -i localhost:8080/data
 Environment variables:
 
 + `PORT`: port to listen on (default `8080`).
++ `CACHE_SECONDS`: how long a response is reused (default `25`, which allows all day requests
+  within Open Sky's limit).
 + `ALLOW_ORIGIN`: value of `Access-Control-Allow-Origin` (default `*`).
 + `OPENSKY_CLIENT_ID` and `OPENSKY_CLIENT_SECRET`: Open Sky API client credentials. If both are
   set the proxy authenticates, otherwise it makes anonymous requests. On a server they go in
