@@ -19,7 +19,7 @@ const COLOUR = [
 ];
 
 
-interface PieInputInterface {
+type PieInputInterface = {
   country: string
   count: number
   // Index signature to make this type compatible with Record<string, unknown>
