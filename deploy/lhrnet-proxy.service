@@ -1,0 +1,19 @@
+[Unit]
+Description=lhrnet OpenSky proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/opt/lhrnet/opensky_proxy
+Environment=PORT=8080
+# OPENSKY_CLIENT_ID / OPENSKY_CLIENT_SECRET live here (chmod 600), never in GitHub.
+EnvironmentFile=-/etc/lhrnet-proxy.env
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+lhr.billyedmoore.com {
+	encode zstd gzip
+
+	handle /data {
+		reverse_proxy 127.0.0.1:8080
+	}
+
+	handle {
+		root * /var/www/lhrnet
+		try_files {path} /index.html
+		file_server
+	}
+}
