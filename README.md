@@ -18,7 +18,15 @@ account is not updated 24/7.
 
 We look at the position of aircraft for a big rectangle centered on the airport and make a
 prediction of which state the airport is operating in. This is run purely client side
-in the browser using data fetched from the [open-sky network](https://opensky-network.org/).
+in the browser. The aircraft positions come from the [open-sky network](https://opensky-network.org/)
+through a small caching proxy, so all visitors share one upstream request.
+
+## Repository layout
+
++ `web/`: the React web-app ([README](./web/README.md)).
++ `proxy/`: the C proxy that fetches and caches Open Sky data ([README](./proxy/README.md)).
++ `deploy/`: deployment to a VPS ([README](./deploy/README.md)).
++ Everything else is the data collection and model training described below.
 
 ## Usage
 
@@ -52,7 +60,7 @@ timeline of states, this should take the form of a list of objects each in the f
 }
 ```
 
-You can then run ```python process_states.py``` this will create two new 
+You can then run ```python process_raw_states.py``` this will create two new 
 files ```data\test_details.csv``` and ```data\train_details.csv```. Each containing a list
 of run length encoded inputs followed by the index in ```config[states]``` of the corresponding state. 
 For example a snippet of "Night" states looks like:
@@ -72,7 +80,7 @@ will need to do this over a few weeks to ensure you capture all the states.
 
 ## Possible Future Improvements
 
-+ Modify fetch_raw_data.py and process_raw_states.py to save and load from a sqlite database rather than 
++ Modify fetch_raw_states.py and process_raw_states.py to save and load from a sqlite database rather than 
     json (currently each state is 0.625 kilobytes so if we assume we can load json files up to 0.5 gigabytes
     we are limited to 800,000 states, which at our fetch rate (once every ~5 mins) would only take 7.6 years).
 + Implement alternative strategies to handle oversampling or remove classes for landing on both runways (only 

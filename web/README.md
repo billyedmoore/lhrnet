@@ -2,11 +2,21 @@
 
 The LHR-Net website is a `React` webapp created with `npx create vite@latest`.
 `Tailwind` is used for styling and the `ONNX` runtime for machine learning inference.
+Aircraft positions are fetched from `/data`, which is served by the [proxy](../proxy/README.md).
 
-# Deployment
+## Running locally
 
-The website is setup to auto-deploy to cloudflare pages on push to `main`. There is also
-the capability of preview builds for other branches (which can be configured when needed).
+You need Node 22 and Python 3 (the `dev` and `build` scripts run a small Python script that
+copies `config.json` into the app).
 
-The `main` deployment is available at [lhr.billyedmoore.com](lhr.billyedmoore.com).
+```bash
+cd proxy && make && ./opensky_proxy   # terminal 1
+cd web && npm ci && npm run dev       # terminal 2
+```
 
+The Vite dev server forwards `/data` to the proxy on `127.0.0.1:8080`.
+
+## Deployment
+
+The site is hosted on a VPS at [lhr.billyedmoore.com](https://lhr.billyedmoore.com) and
+deployed by a GitHub Action on pushes to `main`. See the [deploy README](../deploy/README.md).
