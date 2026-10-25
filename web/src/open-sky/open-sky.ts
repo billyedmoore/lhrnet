@@ -56,16 +56,7 @@ function ConvertStatesToObjects(rawStates: OpenSkyStatesResponse): OpenSkyStates
 
 
 export async function fetchStatesFromOpenSky(config: Config): Promise<StatesPreparedForPrediction> {
-  const center_lat = config.HeathrowLat;
-  const center_long = config.HeathrowLong;
-
-  const lat_min = center_lat - config["latOffset"];
-  const lat_max = center_lat + config["latOffset"];
-  const long_min = center_long - config["longOffset"];
-  const long_max = center_long + config["longOffset"];
-
-  const base_url = "https://opensky-network.org/api/states/all?";
-  const response = await fetch(`${base_url}lamin=${lat_min}&lamax=${lat_max}&lomin=${long_min}&lomax=${long_max}`)
+  const response = await fetch("/data")
 
   if (!response.ok) {
     throw new Error(`${response.status} Request to Open Sky Failed, ${response.statusText}.`)

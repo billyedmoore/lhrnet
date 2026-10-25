@@ -8,4 +8,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    // Dev only: forward Open Sky calls to the local C proxy (see ../proxy).
+    proxy: { "/data": "http://127.0.0.1:8080" },
+  },
 })
