@@ -9,6 +9,8 @@ it behind Caddy or nginx.
 the `BOUNDS` define in `opensky_proxy.c`, worked out from `config.json`, so update it if the
 `HeathrowLat`, `HeathrowLong`, `latOffset` or `longOffset` values change. Responses are cached
 for 10 seconds, and if Open Sky fails or rate limits (429) the last good response is served.
+Each request is logged to stderr as `<time> <status> <cache> <auth>`, where cache is `HIT`, `MISS`,
+`STALE` or `-` (an error response), and auth is `auth` once the proxy holds an Open Sky token, else `anon`.
 
 ## Build and run
 

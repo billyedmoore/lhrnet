@@ -39,6 +39,13 @@ static size_t cached_len;
 static time_t cached_at, backoff_until, token_expires;
 static char token[2048];
 
+static void log_request(int status, const char *cache) {
+  char when[32];
+  time_t now = time(NULL);
+  strftime(when, sizeof when, "%Y-%m-%dT%H:%M:%SZ", gmtime(&now));
+  fprintf(stderr, "%s %d %s %s\n", when, status, cache, *token ? "auth" : "anon");
+}
+
 static void reply(int fd, int status, const char *extra, const char *body, size_t len) {
   const char *origin = getenv("ALLOW_ORIGIN") ? getenv("ALLOW_ORIGIN") : "*";
   char head[256];
@@ -52,11 +59,13 @@ static void reply(int fd, int status, const char *extra, const char *body, size_
 
 static void reply_error(int fd, int status, const char *message) {
   char body[64];
+  log_request(status, "-");
   reply(fd, status, "", body, snprintf(body, sizeof body, "{\"error\":\"%s\"}", message));
 }
 
 static void reply_cached(int fd, const char *state) {
   char extra[64];
+  log_request(200, state);
   snprintf(extra, sizeof extra, "Cache-Control: public, max-age=%d\r\nX-Cache: %s\r\n",
            CACHE_SECONDS, state);
   reply(fd, 200, extra, cached_body, cached_len);
